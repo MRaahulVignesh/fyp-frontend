@@ -1,161 +1,172 @@
 <template>
 <div class="background_1">
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Admin Dashboard</title>
-    <link rel="stylesheet" href="./style.css" />
-  </head>
-  <body>
-    <div id="main">
-      <!-- partial:index.partial.html -->
-      <h1>
-        <span class="blue"></span>ADMIN DASHBOARD
-        <span class="blue"></span>
-        <span class="yellow">
-          <br />
-          <br />Batches Overview
-        </span>
-      </h1>
+  <html lang="en">
+    <head>
+      <meta charset="UTF-8" />
+      <title>Admin Dashboard</title>
+      <link rel="stylesheet" href="./style.css" />
+    </head>
+    <body>
+      <div id="main">
+        <!-- partial:index.partial.html -->
+        <h1>
+          <span class="blue"></span>ADMIN DASHBOARD
+          <span class="blue"></span>
+          <span class="yellow">
+            <br />
+            <br />Batches Overview
+          </span>
+        </h1>
 
-      <table class="container">
-        <thead>
-          <tr>
-            <th>
-              <h1>Batch ID</h1>
-            </th>
-            <th>
-              <h1>Admin</h1>
-            </th>
-            <th>
-              <h1>Farm-Inspector</h1>
-            </th>
-            <th>
-              <h1>Harvester</h1>
-            </th>
-            <th>
-              <h1>Exporter</h1>
-            </th>
-            <th>
-              <h1>Importer</h1>
-            </th>
-            <th>
-              <h1>Processor</h1>
-            </th>
-            <th>
-              <h1>Timeline</h1>
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="(data,index) in dataList" :key="index">
-            <td>{{ data.BatchId }}</td>
-            <td>{{ data.CultivationStage }}</td>
-            <td>{{ data.FarmInspectorStage }}</td>
-            <td>{{ data.HarvesterStage }}</td>
-            <td>{{ data.ExporterStage }}</td>
-            <td>{{ data.ImporterStage}}</td>
-            <td>{{ data.ProcessorStage }}</td>
-            <td>
-              <router-link :to="{ name: 'timeline', params: {id: data.BatchId }, props: {id: data.BatchId}}" > &#128065; </router-link>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <center>
-        <button class="button" @click="openNav()">
-          <span>Create Batch</span>
-        </button>
-      </center>
-    </div>
-
-    <div id="mySidenav" class="sidenav">
-      <a  class="closebtn" @click="closeNav()">&times;</a>
-
-      <form onsubmit="return false">
+        <table class="container">
+          <thead>
+            <tr>
+              <th>
+                <h1>Batch ID</h1>
+              </th>
+              <th>
+                <h1>Admin</h1>
+              </th>
+              <th>
+                <h1>Farm-Inspector</h1>
+              </th>
+              <th>
+                <h1>Harvester</h1>
+              </th>
+              <th>
+                <h1>Exporter</h1>
+              </th>
+              <th>
+                <h1>Importer</h1>
+              </th>
+              <th>
+                <h1>Processor</h1>
+              </th>
+              <th>
+                <h1>Timeline</h1>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(data,index) in dataList" :key="index">
+              <td>{{ data.BatchId }}</td>
+              <td>{{ data.CultivationStage }}</td>
+              <td>{{ data.FarmInspectorStage }}</td>
+              <td>{{ data.HarvesterStage }}</td>
+              <td>{{ data.ExporterStage }}</td>
+              <td>{{ data.ImporterStage}}</td>
+              <td>{{ data.ProcessorStage }}</td>
+              <td>
+                <router-link
+                  :to="{ name: 'timeline', params: {id: data.BatchId }, props: {id: data.BatchId}}"
+                >&#128065;</router-link>
+              </td>
+            </tr>
+          </tbody>
+        </table>
         <center>
-          <h1>BATCH DETAILS</h1>
-          <br />
-          <h2>
-            <label >
-              <font size="6">Farmer Name</font>
-            </label>
-            <br />
-            <br />
-            <input type="text" style="height:30px; width:200px" v-model="batchDetails.farmerName"/>
-            <br />
-            <br />
-            <br />
-            <br />
-
-            <label>
-              <font size="6">Farmer Address</font>
-            </label>
-            <br />
-            <br />
-            <input type="text" style="height:30px; width:200px" v-model="batchDetails.farmerAddress" />
-            <br />
-            <br />
-            <br />
-            <br />
-
-            <label>
-              <font size="6">Exporter Name</font>
-            </label>
-            <br />
-            <br />
-            <input type="text"  style="height:30px; width:200px" v-model="batchDetails.exporterName" />
-            <br />
-            <br />
-            <br />
-            <br />
-
-            <label >
-              <font size="6">Importer Name</font>
-            </label>
-            <br />
-            <br />
-            <input type="text" style="height:30px; width:200px" v-model="batchDetails.importerName" />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <button style="height:50px; width:200px" @click="addBatch">Create Batch</button>
-          </h2>
+          <button class="button" @click="openNav()">
+            <span>Create Batch</span>
+          </button>
         </center>
-      </form>
-    </div>
+      </div>
 
-  </body>
-</html>
+      <div id="mySidenav" class="sidenav">
+        <a class="closebtn" @click="closeNav()">&times;</a>
+
+        <form onsubmit="return false">
+          <center>
+            <h1>BATCH DETAILS</h1>
+            <br />
+            <h2>
+              <label>
+                <font size="6">Farmer Name</font>
+              </label>
+              <br />
+              <br />
+              <input type="text" style="height:30px; width:200px" v-model="batchDetails.farmerName" />
+              <br />
+              <br />
+              <br />
+              <br />
+
+              <label>
+                <font size="6">Farmer Address</font>
+              </label>
+              <br />
+              <br />
+              <input
+                type="text"
+                style="height:30px; width:200px"
+                v-model="batchDetails.farmerAddress"
+              />
+              <br />
+              <br />
+              <br />
+              <br />
+
+              <label>
+                <font size="6">Exporter Name</font>
+              </label>
+              <br />
+              <br />
+              <input
+                type="text"
+                style="height:30px; width:200px"
+                v-model="batchDetails.exporterName"
+              />
+              <br />
+              <br />
+              <br />
+              <br />
+
+              <label>
+                <font size="6">Importer Name</font>
+              </label>
+              <br />
+              <br />
+              <input
+                type="text"
+                style="height:30px; width:200px"
+                v-model="batchDetails.importerName"
+              />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <button style="height:50px; width:200px" @click="addBatch">Create Batch</button>
+            </h2>
+          </center>
+        </form>
+      </div>
+    </body>
+  </html>
 </div>
 </template>
 
 <script>
 import BatchList from "../assets/Batchlist";
-import addBatch2 from "../assets/AddBatch"
+import addBatch2 from "../assets/AddBatch";
 export default {
   data: function() {
     return {
       dataList: BatchList,
       batchDetails: {
-        farmerName: '',
-        farmerAddress: '',
-        exporterName: '',
-        importerName: ''
+        farmerName: "",
+        farmerAddress: "",
+        exporterName: "",
+        importerName: ""
       }
-      
     };
   },
-  
-  methods: {
 
+  methods: {
     openNav: function() {
-      this.batchDetails.farmerName = ""
-      this.batchDetails.farmerAddress = ""
-      this.batchDetails.exporterName = ""
-      this.batchDetails.importerName = ""
+      this.batchDetails.farmerName = "";
+      this.batchDetails.farmerAddress = "";
+      this.batchDetails.exporterName = "";
+      this.batchDetails.importerName = "";
       document.getElementById("mySidenav").style.width = "750px";
       document.getElementById("main").style.marginLeft = "750px";
     },
@@ -174,8 +185,8 @@ export default {
       document.getElementById("main").style.marginLeft = "0";
     },
     addBatch: function() {
-      addBatch2(this.batchDetails)
-      this.closeNav()
+      addBatch2(this.batchDetails);
+      this.closeNav();
     }
   }
 };
@@ -183,7 +194,7 @@ export default {
 
 <style scoped>
 @charset "UTF-8";
-@import url(https://fonts.googleapis.com/css?family=Open+Sans:300, 400, 700);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:300,400,700);
 
 input[type="submit"] {
   font-size: 20px;
