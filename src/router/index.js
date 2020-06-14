@@ -1,15 +1,29 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+import AdminDashBoard from '../views/AdminDashBoard.vue'
+import TimeLine from '../views/Timeline.vue'
+import UserDashBoard from '../views/UserDashBoard.vue'
 
 Vue.use(VueRouter)
 
   const routes = [
   {
     path: '/',
-    name: 'Home',
-    component: Home
+    name: 'admin',
+    component: AdminDashBoard
+  },
+  {
+    path: '/timeline/:id',
+    name: 'timeline',
+    props: true,
+    component: TimeLine
+  },
+  {
+    path: '/user',
+    name: 'user',
+    component: UserDashBoard
   }
+
 ]
 
 const router = new VueRouter({
