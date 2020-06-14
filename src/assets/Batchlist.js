@@ -1,4 +1,8 @@
+// const fabricClient = require('./fabricClient.js');
 
+// let batchListResponse; 
+// fabricClient.queryBatchList().then(res => batchListResponse = res);
+// console.log(batchListResponse)
 const batch_list = [
     {
         id: 12345,
@@ -25,11 +29,11 @@ const batch_list = [
 
     }
 ]
+console.log(batch_list)
 
 function dataProcess(batchList) {
     let temp = batchList
     let data_list = [];
-
     for (let i = 0; i < temp.length; i++) {
       let temp2 = temp[i];
       if (temp2.stage === "cultivation") {
@@ -102,5 +106,5 @@ function dataProcess(batchList) {
   }
 
 let data_list = dataProcess(batch_list)
-
+// let data_list = dataProcess(fabricClient.queryBatchList().response)
 export default data_list

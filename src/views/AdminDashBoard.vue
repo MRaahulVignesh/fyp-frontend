@@ -93,7 +93,7 @@
             </label>
             <br />
             <br />
-            <input type="text" style="height:30px; width:200px" v-model="batchDetails.farmerAddress" />
+            <input type="text" style="height:30px; width:200px" v-model="batchDetails.farmAddress" />
             <br />
             <br />
             <br />
@@ -133,27 +133,34 @@
 </template>
 
 <script>
-import BatchList from "../assets/Batchlist";
-import addBatch2 from "../assets/AddBatch"
+const API_URL = "http://localhost:4000";
+// import BatchList from "../assets/Batchlist";
+// import addBatch2 from "../assets/AddBatch"
 export default {
   data: function() {
     return {
-      dataList: BatchList,
+      dataList: '',
       batchDetails: {
         farmerName: '',
-        farmerAddress: '',
+        farmAddress: '',
         exporterName: '',
         importerName: ''
       }
       
     };
   },
-  
+  mounted() {
+    fetch(API_URL+"/queryResponse")
+    .then(response => response.json())
+    .then(result => {
+      this.dataList = result;
+    })
+  },
   methods: {
 
     openNav: function() {
       this.batchDetails.farmerName = ""
-      this.batchDetails.farmerAddress = ""
+      this.batchDetails.farmAddress = ""
       this.batchDetails.exporterName = ""
       this.batchDetails.importerName = ""
       document.getElementById("mySidenav").style.width = "750px";
@@ -173,8 +180,24 @@ export default {
       document.getElementById("mySidenav_user").style.width = "0";
       document.getElementById("main").style.marginLeft = "0";
     },
+    
     addBatch: function() {
-      addBatch2(this.batchDetails)
+      let data = {
+        "farmer-name": this.batchDetails.farmerName,
+        "farm-address":this.batchDetails.farmAddress,
+        "exporter-name":this.batchDetails.exporterName,
+        "importer-name":this.batchDetails.importerName
+      };
+      console.log(data);
+
+      fetch(API_URL+"/createBatch", {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+          "content-type":"application/json"
+        }
+      });
+      // addBatch2(this.batchDetails)
       this.closeNav()
     }
   }
@@ -183,7 +206,7 @@ export default {
 
 <style scoped>
 @charset "UTF-8";
-@import url(https://fonts.googleapis.com/css?family=Open+Sans:300, 400, 700);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:300,400,700);
 
 input[type="submit"] {
   font-size: 20px;
