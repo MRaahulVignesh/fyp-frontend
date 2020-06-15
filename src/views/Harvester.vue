@@ -157,22 +157,19 @@ export default {
     },
 
     addBatch: function() {
-      let data = {
-        batchID: this.batchDetails.id,
-        nextStage: "exporter",
-        nextStageData: {
+      let body = {
         id: this.batchDetails.id,
         stage: "harvester",
-        temperature: this.batchDetails.temperature,
-        humidity: this.batchDetails.humidity
+        data: {
+          temperature: parseFloat(this.batchDetails.temperature),
+          humidity: parseFloat(this.batchDetails.humidity)
         }
-     
       };
-      console.log(data);
+      console.log(body);
 
       fetch(API_URL + "/updateBatch", {
         method: "POST",
-        body: JSON.stringify(data),
+        body: JSON.stringify(body),
         headers: {
           "content-type": "application/json"
         }

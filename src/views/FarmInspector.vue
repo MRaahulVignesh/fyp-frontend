@@ -56,7 +56,9 @@
             <td>{{ data.ImporterStage}}</td>
             <td>{{ data.ProcessorStage }}</td>
             <td>
-              <router-link :to="{ name: 'timeline', params: {id: data.BatchId }, props: {id: data.BatchId}}">&#128065;</router-link>
+              <router-link
+                :to="{ name: 'timeline', params: {id: data.BatchId }, props: {id: data.BatchId}}"
+              >&#128065;</router-link>
             </td>
           </tr>
         </tbody>
@@ -68,8 +70,8 @@
       </center>
     </div>
 
-     <div id="mySidenav" class="sidenav">
-      <a  class="closebtn" @click="closeNav()">&times;</a>
+    <div id="mySidenav" class="sidenav">
+      <a class="closebtn" @click="closeNav()">&times;</a>
 
       <form onsubmit="return false">
         <center>
@@ -86,12 +88,12 @@
             <br />
             <br />
 
-            <label >
+            <label>
               <font size="6">Seed Type</font>
             </label>
             <br />
             <br />
-            <input type="text" style="height:30px; width:200px" v-model="batchDetails.seedType"/>
+            <input type="text" style="height:30px; width:200px" v-model="batchDetails.seedType" />
             <br />
             <br />
             <br />
@@ -113,7 +115,11 @@
             </label>
             <br />
             <br />
-            <input type="text"  style="height:30px; width:200px" v-model="batchDetails.fertilizerUsed" />
+            <input
+              type="text"
+              style="height:30px; width:200px"
+              v-model="batchDetails.fertilizerUsed"
+            />
             <br />
             <br />
             <br />
@@ -124,7 +130,6 @@
         </center>
       </form>
     </div>
-
   </body>
 </html>
 </template>
@@ -134,31 +139,30 @@ const API_URL = "http://localhost:4000";
 export default {
   data: function() {
     return {
-      dataList: '',
-       batchDetails: {
-        id: '',
-        coffeeFamily: '',
-        seedType: '',
-        fertilizerUsed: ''
+      dataList: "",
+      batchDetails: {
+        id: "",
+        coffeeFamily: "",
+        seedType: "",
+        fertilizerUsed: ""
       }
     };
   },
 
   mounted() {
-    fetch(API_URL+"/queryResponse")
-    .then(response => response.json())
-    .then(result => {
-      this.dataList = result;
-    })
-  }, 
+    fetch(API_URL + "/queryResponse")
+      .then(response => response.json())
+      .then(result => {
+        this.dataList = result;
+      });
+  },
 
   methods: {
-
     openNav: function() {
-      this.batchDetails.id = ""
-      this.batchDetails.coffeeFamily = ""
-      this.batchDetails.seedType = ""
-      this.batchDetails.fertilizerUsed = ""
+      this.batchDetails.id = "";
+      this.batchDetails.coffeeFamily = "";
+      this.batchDetails.seedType = "";
+      this.batchDetails.fertilizerUsed = "";
       document.getElementById("mySidenav").style.width = "750px";
       document.getElementById("main").style.marginLeft = "750px";
     },
@@ -167,36 +171,33 @@ export default {
       document.getElementById("mySidenav").style.width = "0";
       document.getElementById("main").style.marginLeft = "0";
     },
-    
+
     addBatch: function() {
       let data = {
-        batchID: this.batchDetails.id,
-        nextStage: "harvester",
-        nextStageData: {
         id: this.batchDetails.id,
         stage: "farm-inspector",
-        "seed-type": this.batchDetails.seedType,
-        "coffee-family":this.batchDetails.coffeeFamily,
-        "fertilizer-used":this.batchDetails.fertilizerUsed
-      }
+        data: {
+          "seed-type": this.batchDetails.seedType,
+          "coffee-family": this.batchDetails.coffeeFamily,
+          "fertilizer-used": this.batchDetails.fertilizerUsed
+        }
       };
       console.log(data);
 
-      fetch(API_URL+"/updateBatch", {
+      fetch(API_URL + "/updateBatch", {
         method: "POST",
         body: JSON.stringify(data),
         headers: {
-          "content-type":"application/json"
+          "content-type": "application/json"
         }
       });
-      this.closeNav()
+      this.closeNav();
     }
   }
 };
 </script>
 
 <style scoped>
-
 @charset "UTF-8";
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:300,400,700);
 

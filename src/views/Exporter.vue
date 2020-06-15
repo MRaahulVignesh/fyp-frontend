@@ -216,18 +216,16 @@ export default {
     
     addBatch: function() {
       let data = {
-        batchID: this.batchDetails.id,
-        nextStage: "importer",
-        nextStageData: {
         id: this.batchDetails.id,
         stage: "exporter",
-        quantity: this.batchDetails.quantity,
-        'destination-address': this.batchDetails.destinationAddress,
-        'ship-name': this.batchDetails.shipName,
-        'ship-no': this.batchDetails.shipNo,
-        'departure-date-time': this.batchDetails.departureDateTime,
-        'estimated-arrival-time': this.batchDetails.estimatedArrivalTime,
-        'exporter-id': this.batchDetails.exporterId
+        data: {
+          quantity: parseFloat(this.batchDetails.quantity),
+          'destination-address': this.batchDetails.destinationAddress,
+          'ship-name': this.batchDetails.shipName,
+          'ship-no': this.batchDetails.shipNo,
+          'departure-date-time': this.batchDetails.departureDateTime,
+          'estimated-arrival-time': this.batchDetails.estimatedArrivalTime,
+          'exporter-id': parseInt(this.batchDetails.exporterId)
       }};
       console.log(data);
 

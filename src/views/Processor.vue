@@ -207,13 +207,11 @@ export default {
 
     addBatch: function() {
       let data = {
-        batchID: this.batchDetails.id,
-        nextStage: "",
-        nextStageData: {
-          id: this.batchDetails.id,
-          stage: "processor",
-          temperature: this.batchDetails.temperature,
-          "roasting-duration": this.batchDetails.roastingDuration,
+        id: this.batchDetails.id,
+        stage: "processor",
+        data: {
+          temperature: parseFloat(this.batchDetails.temperature),
+          "roasting-duration": parseInt(this.batchDetails.roastingDuration),
           "package-date-time": this.batchDetails.packageDateTime,
           "processor-name": this.batchDetails.processorName,
           "warehouse-address": this.batchDetails.processorName

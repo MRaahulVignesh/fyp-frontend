@@ -215,19 +215,18 @@ export default {
     
     addBatch: function() {
       let data = {
-        batchID: this.batchDetails.id,
-        nextStage: "processor",
-        nextStageData: {
         id: this.batchDetails.id,
         stage: "importer",
-        'ship-name': this.batchDetails.shipName,
-        'ship-no': this.batchDetails.shipNo,
-        'arrival-date-time': this.batchDetails.arrivalDateTime,
-        'transport-info': this.batchDetails.transportInfo,
-        'warehouse-name': this.batchDetails.warehouseName,
-        'warehouse-address': this.batchDetails.warehouseAddress,
-        'importer-id': this.batchDetails.importerId
-      }};
+        data: {
+          'ship-name': this.batchDetails.shipName,
+          'ship-no': this.batchDetails.shipNo,
+          'arrival-date-time': this.batchDetails.arrivalDateTime,
+          'transport-info': this.batchDetails.transportInfo,
+          'warehouse-name': this.batchDetails.warehouseName,
+          'warehouse-address': this.batchDetails.warehouseAddress,
+          'importer-id': parseInt(this.batchDetails.importerId)
+        }
+      };
       console.log(data);
 
       fetch(API_URL+"/updateBatch", {

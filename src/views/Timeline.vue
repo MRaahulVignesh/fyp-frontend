@@ -121,7 +121,7 @@
                 <div class="agenda__item__detail">
                   <div class="horaires">
                      <time datetime v-if="response.ExporterData.id !== ''">
-                      {{ response.Exporter.Data.timestamp.split(" ")[0]}}
+                      {{ response.ExporterData.timestamp.split(" ")[0]}}
                       <br /> {{ response.ExporterData.timestamp.split(" ")[1].split(".")[0]}}
                     </time>
                   </div>
@@ -260,18 +260,25 @@ const API_URL = "http://localhost:4000";
 export default {
   data: function() {
     return {
-      response: ""
+      response: {}
     };
   },
   props: ["id"],
  mounted() {
+   let data = {
+     id: this.id
+   };
+   console.log(data)
     fetch(API_URL+"/queryBatch", {
         method: "POST",
-        body: JSON.stringify(this.id),
+        body: JSON.stringify(data),
         headers: {
           "content-type":"application/json"
         }})
-    .then(response => response.json())
+    .then(response => response.json()).then((mid) => {
+      console.log(mid)
+      return mid
+    })
     .then(result => {
       this.response = result;
     })
