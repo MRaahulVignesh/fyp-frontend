@@ -169,7 +169,7 @@
           <ol class="agenda__list">
             <li class="agenda__item toiletteur" v-show="response.ImporterData.id !== ''">
               <article class="agenda__item__article">
-                <span class="agenda__item__date">&#8709;</span>
+                <span class="agenda__item__date">&#10003;</span>
                 <div class="agenda__item__detail">
                   <div class="horaires">
                      <time datetime v-if="response.ImporterData.id !== ''">
@@ -212,7 +212,7 @@
             </li>
             <li class="agenda__item" v-show="response.ProcessorData.id !== ''">
               <article class="agenda__item__article">
-                <span class="agenda__item__date">&#8709;</span>
+                <span class="agenda__item__date">&#10003;</span>
                 <div class="agenda__item__detail">
                   <div class="horaires">
                      <time datetime v-if="response.ProcessorData.id !== ''">

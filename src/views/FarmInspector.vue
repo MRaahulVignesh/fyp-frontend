@@ -65,7 +65,7 @@
       </table>
       <center>
         <button class="button" @click="openNav()">
-          <span>Create Batch</span>
+          <span>Add Details</span>
         </button>
       </center>
     </div>
@@ -125,7 +125,7 @@
             <br />
             <br />
 
-            <button style="height:50px; width:200px" @click="addBatch">Add details</button>
+            <button style="height:50px; width:200px" @click="addBatch">Add Details</button>
           </h2>
         </center>
       </form>

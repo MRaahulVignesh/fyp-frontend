@@ -63,7 +63,7 @@
       </table>
       <center>
         <button class="button" @click="openNav()">
-          <span>Create Batch</span>
+          <span>Add Details</span>
         </button>
       </center>
     </div>
