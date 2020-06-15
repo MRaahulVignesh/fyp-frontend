@@ -256,17 +256,26 @@
 </template>
 
 <script>
-import response from "../assets/Process.js";
+const API_URL = "http://localhost:4000";
 export default {
   data: function() {
     return {
-      response: response
+      response: ""
     };
   },
   props: ["id"],
-  beforeCreate() {
-    //&#8709;
-  }
+ mounted() {
+    fetch(API_URL+"/queryBatch", {
+        method: "POST",
+        body: JSON.stringify(this.id),
+        headers: {
+          "content-type":"application/json"
+        }})
+    .then(response => response.json())
+    .then(result => {
+      this.response = result;
+    })
+  },
 };
 </script>
 

@@ -1,15 +1,15 @@
 <template>
-<html lang="en">
+<html lang="en" class="background_1">
   <head>
     <meta charset="UTF-8" />
-    <title>Admin Dashboard</title>
+    <title>User Dashboard</title>
     <link rel="stylesheet" href="./style.css" />
   </head>
   <body>
     <div id="main">
       <!-- partial:index.partial.html -->
       <h1>
-        <span class="blue"></span>ADMIN DASHBOARD
+        <span class="blue">USER DASHBOARD</span>
         <span class="blue"></span>
         <span class="yellow">
           <br />
@@ -56,7 +56,9 @@
             <td>{{ data.ImporterStage}}</td>
             <td>{{ data.ProcessorStage }}</td>
             <td>
-              <router-link :to="{ name: 'timeline', params: {id: data.BatchId }, props: {id: data.BatchId}}" > &#128065; </router-link>
+              <router-link
+                :to="{ name: 'timeline', params: {id: data.BatchId }, props: {id: data.BatchId}}"
+              >&#128065;</router-link>
             </td>
           </tr>
         </tbody>
@@ -69,97 +71,131 @@
     </div>
 
     <div id="mySidenav" class="sidenav">
-      <a  class="closebtn" @click="closeNav()">&times;</a>
+      <a class="closebtn" @click="closeNav()">&times;</a>
 
       <form onsubmit="return false">
         <center>
           <h1>BATCH DETAILS</h1>
           <br />
           <h2>
-            <label >
-              <font size="6">Farmer Name</font>
+            <label>
+              <font size="6">Batch Id</font>
             </label>
             <br />
             <br />
-            <input type="text" style="height:30px; width:200px" v-model="batchDetails.farmerName"/>
-            <br />
+            <input type="text" style="height:30px; width:200px" v-model="batchDetails.id" />
             <br />
             <br />
             <br />
 
             <label>
-              <font size="6">Farmer Address</font>
+              <font size="6">Temperature</font>
             </label>
             <br />
             <br />
-            <input type="text" style="height:30px; width:200px" v-model="batchDetails.farmAddress" />
-            <br />
+            <input type="text" style="height:30px; width:200px" v-model="batchDetails.temperature" />
             <br />
             <br />
             <br />
 
             <label>
-              <font size="6">Exporter Name</font>
+              <font size="6">Roasting Duration</font>
             </label>
             <br />
             <br />
-            <input type="text"  style="height:30px; width:200px" v-model="batchDetails.exporterName" />
-            <br />
+            <input
+              type="text"
+              style="height:30px; width:200px"
+              v-model="batchDetails.roastingDuration"
+            />
             <br />
             <br />
             <br />
 
-            <label >
-              <font size="6">Importer Name</font>
+            <label>
+              <font size="6">Package Date Time</font>
             </label>
             <br />
             <br />
-            <input type="text" style="height:30px; width:200px" v-model="batchDetails.importerName" />
+            <input
+              type="text"
+              style="height:30px; width:200px"
+              v-model="batchDetails.packageDateTime"
+            />
             <br />
             <br />
             <br />
+
+            <label>
+              <font size="6">Processor Name</font>
+            </label>
             <br />
             <br />
-            <button style="height:50px; width:200px" @click="addBatch">Create Batch</button>
+            <input
+              type="text"
+              style="height:30px; width:200px"
+              v-model="batchDetails.processorName"
+            />
+            <br />
+            <br />
+            <br />
+
+            <label>
+              <font size="6">Warehouse Address</font>
+            </label>
+            <br />
+            <br />
+            <input
+              type="text"
+              style="height:30px; width:200px"
+              v-model="batchDetails.warehouseAddress"
+            />
+            <br />
+            <br />
+            <br />
+
+            <button style="height:50px; width:200px" @click="addBatch">Add details</button>
           </h2>
         </center>
       </form>
     </div>
-
   </body>
 </html>
 </template>
 
 <script>
 const API_URL = "http://localhost:4000";
-import Batchlist from "../assets/Batchlist"
 export default {
   data: function() {
     return {
-      dataList: Batchlist,
+      dataList: "",
       batchDetails: {
-        farmerName: '',
-        farmAddress: '',
-        exporterName: '',
-        importerName: ''
+        id: "",
+        temperature: 0,
+        roastingDuration: 0,
+        packageDateTime: "",
+        processorName: "",
+        warehouseAddress: ""
       }
-      
     };
   },
-  mounted() {
-    fetch(API_URL+"/queryResponse")
-    .then(response => response.json())
-    .then(result => {
-      this.dataList = result;
-    })
-  },
-  methods: {
 
+  mounted() {
+    fetch(API_URL + "/queryResponse")
+      .then(response => response.json())
+      .then(result => {
+        this.dataList = result;
+      });
+  }, 
+
+  methods: {
     openNav: function() {
-      this.batchDetails.farmerName = ""
-      this.batchDetails.farmAddress = ""
-      this.batchDetails.exporterName = ""
-      this.batchDetails.importerName = ""
+      this.batchDetails.id = "";
+      this.batchDetails.temperature = 0;
+      this.batchDetails.roastingDuration = 0;
+      this.batchDetails.packageDateTime = "";
+      this.batchDetails.processorName = "";
+      this.batchDetails.warehouseAddress = "";
       document.getElementById("mySidenav").style.width = "750px";
       document.getElementById("main").style.marginLeft = "750px";
     },
@@ -168,25 +204,31 @@ export default {
       document.getElementById("mySidenav").style.width = "0";
       document.getElementById("main").style.marginLeft = "0";
     },
-    
+
     addBatch: function() {
       let data = {
-        "farmer-name": this.batchDetails.farmerName,
-        "farm-address":this.batchDetails.farmAddress,
-        "exporter-name":this.batchDetails.exporterName,
-        "importer-name":this.batchDetails.importerName
+        batchID: this.batchDetails.id,
+        nextStage: "",
+        nextStageData: {
+          id: this.batchDetails.id,
+          stage: "processor",
+          temperature: this.batchDetails.temperature,
+          "roasting-duration": this.batchDetails.roastingDuration,
+          "package-date-time": this.batchDetails.packageDateTime,
+          "processor-name": this.batchDetails.processorName,
+          "warehouse-address": this.batchDetails.processorName
+        }
       };
       console.log(data);
 
-      fetch(API_URL+"/createBatch", {
+      fetch(API_URL + "/updateBatch", {
         method: "POST",
         body: JSON.stringify(data),
         headers: {
-          "content-type":"application/json"
+          "content-type": "application/json"
         }
       });
-      // addBatch2(this.batchDetails)
-      this.closeNav()
+      this.closeNav();
     }
   }
 };
